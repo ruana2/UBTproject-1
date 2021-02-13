@@ -1,0 +1,910 @@
+﻿<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Covid-19</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/vendor.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- script
+    ================================================== -->
+    <script src="js/modernizr.js"></script>
+    <script src="js/pace.min.js"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="virus30.png" type="image/x-icon">
+    <link rel="icon" href="virus30.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+
+
+
+    <script>
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+    animationEnabled: true,
+    title:{
+        text: "Number of infected people since 13.03.2020 in Kosovo"
+    },
+    axisY :{
+        includeZero: false,
+        // prefix: "$"
+    },
+    toolTip: {
+        shared: true
+    },
+    legend: {
+        fontSize: 14
+    },
+    data: [{
+        type: "splineArea",
+        showInLegend: true,
+        name: "Infected",
+        yValueFormatString: "#,##0",
+        xValueFormatString: "D MMM YYYY",
+        dataPoints: [
+            { x: new Date(2020, 2, 12 ), y: 0 },
+            { x: new Date(2020, 2, 13 ), y: 2 },
+            { x: new Date(2020, 2, 18 ), y: 20 },
+            { x: new Date(2020, 2, 24 ), y: 63 },
+            { x: new Date(2020, 2, 30), y: 102 },
+            { x: new Date(2020, 3, 8),  y: 184 },
+            { x: new Date(2020, 3, 9),  y: 224 }
+        ]
+    },
+    {
+        type: "splineArea", 
+        showInLegend: true,
+        name: "Healed",
+        yValueFormatString: "#,##0",
+        dataPoints: [
+            { x: new Date(2020, 2, 12), y: 0 },
+            { x: new Date(2020, 2, 13), y: 0 },
+            { x: new Date(2020, 2, 18), y: 0 },
+            { x: new Date(2020, 2, 24), y: 2 },
+            { x: new Date(2020, 2, 30), y: 15 },
+            { x: new Date(2020, 3, 8), y: 30 },
+            { x: new Date(2020, 3, 9), y: 30 }
+        ]
+    },
+    {
+        type: "splineArea", 
+        showInLegend: true,
+        name: "Victims",
+        yValueFormatString: "#,##0",     
+        dataPoints: [
+            { x: new Date(2020, 2, 12), y: 0 },
+            { x: new Date(2020, 2, 13), y: 0 },
+            { x: new Date(2020, 2, 18), y: 0 },
+            { x: new Date(2020, 2, 24), y: 1 },
+            { x: new Date(2020, 2, 30), y: 3 },
+            { x: new Date(2020, 3, 8), y: 5 },
+            { x: new Date(2020, 3, 9), y: 6 }
+        ]
+    }]
+});
+chart.render();
+
+
+
+// window.onload = function () 
+    
+var chart2 = new CanvasJS.Chart("chartContainer2", {
+    // animationEnabled: true,
+    
+    title:{
+        text:"Wordwide realtime data about Covid-19"
+    },
+    axisX:{
+        interval: 1
+    },
+    axisY2:{
+        interlacedColor: "rgba(1,77,101,.2)",
+        gridColor: "rgba(1,77,101,.1)",
+        title: "Number of Infected People"
+    },
+    data: [{
+        type: "bar",
+        name: "companies",  
+        axisYType: "secondary",
+        color: "#014D65",
+        dataPoints: [
+            { y: 146690, label: "Spain" },
+            { y: 135586, label: "Italy" },
+            { y: 6015, label: "Australia" },
+            { y: 10384, label: "South Korea" },
+            { y: 22488, label: "Switzerland" },
+            { y: 107659, label: "Germany" },
+            { y: 78167, label: "France" },
+            { y: 81802, label: "China" },
+            { y: 400788, label: "US" }
+        ]
+    }]
+});
+chart2.render();
+
+
+var chart3 = new CanvasJS.Chart("chartContainer3", {
+    exportEnabled: true,
+    animationEnabled: true,
+    title:{
+        text: "Gender segregation of the infected"
+    },
+    legend:{
+        cursor: "pointer",
+        itemclick: explodePie
+    },
+    data: [{
+        type: "pie",
+        showInLegend: true,
+        toolTipContent: "{name}: <strong>{y}</strong>",
+        indexLabel: "{name}",
+        dataPoints: [
+            { y: 46, name: "Male" },
+            { y: 41, name: "Female" },
+            { y: 83, name: "Unidentified"}
+        ]
+    }]
+});
+chart3.render();
+}
+
+function explodePie (e) {
+    if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
+        e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
+    } else {
+        e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
+    }
+    e.chart.render();
+
+}
+
+
+function explodePie (e) {
+    if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
+        e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
+    } else {
+        e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
+    }
+    e.chart.render();
+
+}
+</script>
+
+</head>
+
+
+<body id="top">
+    
+    <!-- preloader
+    ================================================== -->
+    <div id="preloader">
+        <div id="loader" class="dots-jump">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+
+    <!-- header
+    ================================================== -->
+    <header class="s-header">
+
+        <div class="row">
+
+            <div class="header-logo">
+                <a class="site-logo" href="index.html"><i class="fas fa-viruses"></i>Covid-19</a>
+            </div>
+            
+            <nav class="header-nav-wrap">
+                <ul class="header-nav">
+                    <li class="current"><a class="smoothscroll"  href="#home" title="home">Home</a></li>
+                    <li><a class="smoothscroll"  href="#about" title="about">About</a></li>
+                    <li><a class="smoothscroll"  href="#services" title="services">Services</a></li>
+                    <li><a class="smoothscroll"  href="#works" title="works">Works</a></li>
+                    <li><a class="smoothscroll"  href="#contact" title="contact">Contact</a></li>
+                </ul>
+            </nav> <!-- end header-nav-wrap -->
+            
+            <a class="header-menu-toggle" href="#0">
+                <span class="header-menu-icon"></span>
+            </a>
+
+        </div> <!-- end row -->
+
+    </header> <!-- end s-header -->
+
+
+    <!-- home
+    ================================================== -->
+    <section id="home" class="s-home page-hero target-section" data-parallax="scroll" data-image-src="images/virusbanner.jpg" data-natural-width=4000 data-natural-height=2000 data-position-y=center>
+
+        <div class="shadow-overlay"></div>
+
+        <div class="home-content">
+
+            <div class="row home-content__main">
+
+                <h1>
+                We provide <br>
+                real-time data  <br>
+                regarding Covid-19
+                </h1>
+
+                <div class="home-content__button">
+                    <a href="#about" class="smoothscroll btn btn-animatedbg">
+                        More About Covid-19
+                    </a>
+                </div>
+
+                <div class="home-content__video">
+                    <a class="video-link" href="https://www.youtube.com/watch?v=pTOvhXKfqM" data-lity>
+                        <span class="video-icon"></span>
+                        <span class="video-text">Play Video about covid-19</span>
+                    </a>
+                </div>
+
+            </div> <!-- end home-content__main -->
+
+            <div class="home-content__scroll">
+                <a href="#about" class="scroll-link smoothscroll">
+                    Scroll
+                </a>
+            </div>
+
+        </div> <!-- end home-content -->
+
+        <ul class="home-social">
+            <li>
+                <a href="#0"><i class="fab fa-facebook-f" aria-hidden="true"></i><span>Facebook</span></a>
+            </li>
+            <li>
+                <a href="#0"><i class="fab fa-twitter" aria-hidden="true"></i><span>Twiter</span></a>
+            </li>
+            <li>
+                <a href="#0"><i class="fab fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
+            </li>
+          
+        </ul> <!-- end home-social -->
+
+    </section> <!-- end s-home -->
+
+
+    <!-- about
+    ================================================== -->
+    <section id="about" class="s-about target-section">
+
+        <div class="row section-header" data-aos="fade-up">
+            <div class="col-full">
+                <h3 data-num="01" class="subhead">What is Covid-19</h3>
+                <h1 class="display-1">
+                Coronavirus disease (COVID-19) is an infectious disease caused by a newly discovered coronavirus.
+
+                </h1>
+                <p class="lead">
+Most people infected with the COVID-19 virus will experience mild to moderate respiratory illness and recover without requiring special treatment.  Older people, and those with underlying medical problems like cardiovascular disease, diabetes, chronic respiratory disease, and cancer are more likely to develop serious illness.
+                </p>
+            </div>
+        </div>
+
+
+            <!-- CHARTS IN JAVA SCRIPT -->
+        
+            <div id="chartContainer" style="height: 400px; width: 85%;"></div>
+            <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        
+            <div id="chartContainer3" style="height: 300px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
+        
+<!-- 
+        <div class="row about-process block-1-2 block-tab-full">
+
+            <div class="col-block item-process" data-aos="fade-up">
+                <div class="item-process__header item-process__header--planning">
+                    <h3>Infected</h3>
+                </div>
+                <p>
+                   The coronavirus COVID-19 is affecting 203 countries and territories around the world and 2 international conveyances: the Diamond Princess cruise ship harbored in Yokohama, Japan, and the Holland America's MS Zaandam cruise ship.
+                </p>
+            </div>
+            <div class="col-block item-process" data-aos="fade-up">
+                <div class="item-process__header item-process__header--branding">
+                    <h3>Quarantine</h3>
+                </div>
+                <p>
+                    Based on what's currently known about how long symptoms last, the recommended length of quarantine is 14 days. The goal is to prevent potentially spreading the virus by separating yourself from other people long enough to determine whether or not you're infected and showing symptoms.
+                </p> 
+            </div>
+            <div class="col-block item-process" data-aos="fade-up">
+                <div class="item-process__header item-process__header--implementation">
+                    <h3>WHO (World Health Organisation)</h3>
+                </div>
+                <p>
+                    The World Health Organization (WHO) is a specialized agency of the United Nations responsible for international public health.[1] It is part of the U.N. Sustainable Development Group. The WHO Constitution, which establishes the agency's governing structure and principles, states its main objective as ensuring "the attainment by all peoples of the highest possible level of health."[2] It is headquartered in Geneva, Switzerland, with six semi-autonomous regional offices and 150 field offices worldwide. 
+                </p>
+            </div>
+            <div class="col-block item-process" data-aos="fade-up">
+                <div class="item-process__header item-process__header--documentation">
+                    <h3>How to stay safe</h3>
+                </div>
+                <p>
+                    It is advisable to disinfect surfaces that come into contact with people often. Using Clorox disinfecting wipes and certain Lysol sprays, both approved by the US Environmental Protection Agency, clean surfaces like tables, door handles, keyboards, light switches and remote controls.
+                </p>
+            </div>
+
+        </div>  <!-- end about-process -->
+
+    </section> <!-- end s-about -->
+
+
+    <!-- services
+    ================================================== -->
+    <section id="services" class="s-services target-section">
+
+        <div class="row section-header" data-aos="fade-up">
+            <div class="col-full">
+                <h3 data-num="02" class="subhead">How to prevent Covid-19</h3>
+                <h1 class="display-1 display-1--light">
+                You can protect yourself and help prevent spreading the virus to others if you:
+                </h1>
+                <p class="lead lead-light">
+     Coronavirus disease spreads primarily through contact with an infected person when they cough or sneeze. It also spreads when a person touches a surface or object that has the virus on it, then touches their eyes, nose, or mouth.
+                </p>
+            </div>
+        </div>
+
+        <div class="row services-list block-1-3 block-m-1-2 block-tab-full">
+
+            <div class="col-block item-service" data-aos="fade-up">
+                <h4>WASH HANDS</h4>
+                <p>
+                Sit ut cum molestiae. Dolore ducimus qui quasi. Fugiat consequatur sit vel illum vel et 
+                a delectus.
+                </p>
+            </div>
+
+            <div class="col-block item-service" data-aos="fade-up">
+                <h4>STAY HOME</h4>
+                <p>
+                Sit ut cum molestiae. Dolore ducimus qui quasi. Fugiat consequatur sit vel illum vel et 
+                a delectus.
+                </p>
+            </div>
+
+            <div class="col-block item-service" data-aos="fade-up">
+                <h4>KEEP DISTANCE</h4>
+                <p>
+                Sit ut cum molestiae. Dolore ducimus qui quasi. Fugiat consequatur sit vel illum vel et 
+                a delectus.
+                </p>
+            </div>
+
+            <div class="col-block item-service" data-aos="fade-up">
+                <h4>USE VITAMIN C</h4>
+                <p>
+                Sit ut cum molestiae. Dolore ducimus qui quasi. Fugiat consequatur sit vel illum vel et 
+                a delectus. 
+                </p>
+            </div>
+
+            <div class="col-block item-service" data-aos="fade-up">
+                <h4>USE MASKS</h4>
+                <p>
+                Sit ut cum molestiae. Dolore ducimus qui quasi. Fugiat consequatur sit vel illum vel et 
+                a delectus.
+                </p>
+            </div>
+
+            <div class="col-block item-service" data-aos="fade-up">
+                <h4>AVOID TOUCHING YOUR FACE</h4>
+                <p>
+                Sit ut cum molestiae. Dolore ducimus qui quasi. Fugiat consequatur sit vel illum vel et 
+                a delectus. 
+                </p>
+            </div>
+
+        </div> <!-- end list -->
+
+    </section> <!-- end s-services -->
+
+
+    <!-- works
+    ================================================== -->
+    <section id="works" class="s-works target-section">
+
+        <div class="row section-header" data-aos="fade-up">
+            <div class="col-full">
+                <h3 data-num="03" class="subhead">Recent News</h3>
+                <h1 class="display-1">
+                Here are some of the states around the world infected with Covid-19!
+                </h1>
+            </div>
+        </div>
+
+
+
+        <!-- WORLDWIDE CHART -->
+            
+
+        
+            <div id="chartContainer2" style="height: 400px; width: 90%;"></div>
+            <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
+
+
+        <!-- <div class="portfolio block-1-4 block-m-1-3 block-tab-1-2 collapse">
+            
+            <div class="col-block item-folio" data-aos="fade-up">
+
+                <div class="item-folio__thumb">
+                    <a href="images/portfolio/gallery/kosovo.jpg" class="thumb-link" title="Kosovo" data-size="1050x700">
+                        <img src="images/portfolio/kosovo.jpg" 
+                             srcset="images/portfolio/kosovo.jpg 1x, images/portfolio/kosovo@2x.jpg 2x" alt="">
+                    </a>
+                </div>
+
+                <div class="item-folio__text">
+                    <h3 class="item-folio__title">
+                        Kosovo
+                    </h3>
+                    <p class="item-folio__cat">
+                        Covid-19
+                    </p>
+                </div>
+
+                <a href="" class="item-folio__project-link" title="Project link">
+                    Project Link
+                </a>
+
+                <div class="item-folio__caption">
+                    <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
+                </div>
+
+            </div> --> <!-- end item-folio -->
+
+            <!-- <div class="col-block item-folio" data-aos="fade-up">
+
+                <div class="item-folio__thumb">
+                    <a href="images/portfolio/gallery/albania.jpg" class="thumb-link" title="Albania" data-size="1050x700">
+                        <img src="images/portfolio/albania.jpg" 
+                             srcset="images/portfolio/albania.jpg 1x, images/portfolio/albania@2x.jpg 2x" alt="">
+                    </a>
+                </div>
+
+                <div class="item-folio__text">
+                    <h3 class="item-folio__title">
+                        Albania
+                    </h3>
+                    <p class="item-folio__cat">
+                        Covid-19
+                    </p>
+                </div>
+
+                <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
+                    Project Link
+                </a>
+
+                <div class="item-folio__caption">
+                    <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
+                </div>
+
+            </div>  --><!-- end item-folio -->
+<!-- 
+            <div class="col-block item-folio" data-aos="fade-up">
+
+                <div class="item-folio__thumb">
+                    <a href="images/portfolio/gallery/macedonia.jpg" class="thumb-link" title="Macedonia" data-size="1050x700">
+                        <img src="images/portfolio/macedonia.jpg" 
+                             srcset="images/portfolio/macedonia.jpg 1x, images/portfolio/macedonia@2x.jpg 2x" alt="">
+                    </a>
+                </div>
+
+                <div class="item-folio__text">
+                    <h3 class="item-folio__title">
+                        Macedonia
+                    </h3>
+                    <p class="item-folio__cat">
+                        Covid-19
+                    </p>
+                </div>
+
+                <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
+                    Project Link
+                </a>
+
+                <div class="item-folio__caption">
+                    <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
+                </div>
+
+            </div> --> <!-- end item-folio -->
+
+           <!--  <div class="col-block item-folio" data-aos="fade-up">
+
+                <div class="item-folio__thumb">
+                    <a href="images/portfolio/gallery/monte.jpg" class="thumb-link" title="Montenegro" data-size="1050x700">
+                        <img src="images/portfolio/monte.jpg" 
+                             srcset="images/portfolio/monte.jpg 1x, images/portfolio/monte@2x.jpg 2x" alt="">
+                    </a>
+                </div>
+
+                <div class="item-folio__text">
+                    <h3 class="item-folio__title">
+                        Montenegro
+                    </h3>
+                    <p class="item-folio__cat">
+                       Covid-19
+                    </p>
+                </div>
+
+                <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
+                    Project Link
+                </a>
+
+                <div class="item-folio__caption">
+                    <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
+                </div>
+
+            </div> --> <!-- end item-folio -->
+
+            <!-- <div class="col-block item-folio" data-aos="fade-up">
+
+                <div class="item-folio__thumb">
+                    <a href="images/portfolio/gallery/italy.jpg" class="thumb-link" title="Italy" data-size="1050x700">
+                        <img src="images/portfolio/italy.jpg" 
+                             srcset="images/portfolio/italy.jpg 1x, images/portfolio/italy@2x.jpg 2x" alt="">
+                    </a>
+                </div>
+
+                <div class="item-folio__text">
+                    <h3 class="item-folio__title">
+                        Italy
+                    </h3>
+                    <p class="item-folio__cat">
+                        Covid-19
+                    </p>
+                </div>
+
+                <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
+                    Project Link
+                </a>
+
+                <div class="item-folio__caption">
+                    <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
+                </div>
+
+            </div> --> <!-- end item-folio -->
+
+            <!-- <div class="col-block item-folio" data-aos="fade-up">
+
+                <div class="item-folio__thumb">
+                    <a href="images/portfolio/gallery/china.jpg" class="thumb-link" title="china" data-size="1050x700">
+                        <img src="images/portfolio/china.jpg" 
+                             srcset="images/portfolio/china.jpg 1x, images/portfolio/china@2x.jpg 2x" alt="">
+                    </a>
+                </div>
+
+                <div class="item-folio__text">
+                    <h3 class="item-folio__title">
+                        China
+                    </h3>
+                    <p class="item-folio__cat">
+                        Covid-19
+                    </p>
+                </div>
+
+                <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
+                    Project Link
+                </a>
+
+                <div class="item-folio__caption">
+                    <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
+                </div>
+
+            </div> --> <!-- end item-folio -->
+
+           <!--  <div class="col-block item-folio" data-aos="fade-up">
+
+                <div class="item-folio__thumb">
+                    <a href="images/portfolio/gallery/namerica.jpg" class="thumb-link" title="North America" data-size="1050x700">
+                        <img src="images/portfolio/namerica.jpg" 
+                             srcset="images/portfolio/namerica.jpg 1x, images/portfolio/namerica@2x.jpg 2x" alt="">
+                    </a>
+                </div>
+
+                <div class="item-folio__text">
+                    <h3 class="item-folio__title">
+                        North America
+                    </h3>
+                    <p class="item-folio__cat">
+                        Covid-19
+                    </p>
+                </div>
+
+                <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
+                    Project Link
+                </a>
+
+                <div class="item-folio__caption">
+                    <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
+                </div>
+
+            </div> --> <!-- end item-folio -->
+
+           <!--  <div class="col-block item-folio" data-aos="fade-up">
+
+                <div class="item-folio__thumb">
+                    <a href="images/portfolio/gallery/same.jpg" class="thumb-link" title="South America" data-size="1050x700">
+                        <img src="images/portfolio/same.jpg" 
+                             srcset="images/portfolio/same.jpg 1x, images/portfolio/same@2x.jpg 2x" alt="">
+                    </a>
+                </div>
+
+                <div class="item-folio__text">
+                    <h3 class="item-folio__title">
+                        South America
+                    </h3>
+                    <p class="item-folio__cat">
+                        Covid-19
+                    </p>
+                </div>
+
+                <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
+                    Project Link
+                </a>
+
+                <div class="item-folio__caption">
+                    <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
+                </div>
+
+            </div> --> <!-- end item-folio -->
+
+       <!--  </div> --> <!-- end portfolio -->
+
+
+        <!-- <div class="testimonials-wrap" data-aos="fade-up">
+
+            <div class="row">
+                <div class="col-full testimonials-header">
+                    <h2 class="h1">What WHO (World Health Organisation) Is Saying...</h2>
+                </div>
+            </div>
+
+            <div class="row testimonials">
+
+                <div class="col-full testimonials__slider">
+
+                    <div class="testimonials__slide">
+                        <span class="testimonials__icon"></span>
+                        <p>Qui ipsam temporibus quisquam velMaiores eos cumque distinctio nam accusantium ipsum. 
+                        Laudantium quia consequatur molestias delectus culpa facere hic dolores aperiam. Accusantium praesentium corpori.</p>
+                        <div class="testimonials__author">
+                            <img src="images/avatars/user-01.jpg" alt="Author image" class="testimonials__avatar">
+                            <span class="testimonials__name">Njomze Ademi</span>
+                            <span class="testimonials__position">CEO, Apple</span>
+                        </div>
+                    </div> --> <!-- end testimonials__slide -->
+
+<!--                     <div class="testimonials__slide">
+                        <span class="testimonials__icon"></span>
+                        <p>Excepturi nam cupiditate culpa doloremque deleniti repellat. Veniam quos repellat voluptas animi adipisci.
+                        Nisi eaque consequatur. Quasi voluptas eius distinctio. Atque eos maxime. Qui ipsam temporibus quisquam vel.</p>
+                        <div class="testimonials__author">
+                            <img src="images/avatars/user-01.jpg" alt="Author image" class="testimonials__avatar">
+                            <span class="testimonials__name">Sundar Pichai</span>
+                            <span class="testimonials__position">CEO, Google</span>
+                        </div>
+                    </div> --> <!-- end testimonials__slide -->
+
+                   <!--  <div class="testimonials__slide">
+                        <span class="testimonials__icon"></span>
+                        <p>Repellat dignissimos libero. Qui sed at corrupti expedita voluptas odit. Nihil ea quia nesciunt. Ducimus aut sed ipsam.  
+                        Autem eaque officia cum exercitationem sunt voluptatum accusamus. Quasi voluptas eius distinctio.</p>
+                        <div class="testimonials__author">
+                            <img src="images/avatars/user-02.jpg" alt="Author image" class="testimonials__avatar">
+                            <span class="testimonials__name">Satya Nadella</span>
+                            <span class="testimonials__position">CEO, Microsoft</span>
+                        </div>
+                    </div> --> <!-- end testimonials__slide -->
+                    
+               <!--  </div> --> <!-- end testimonials__slider -->
+
+            <!-- </div> --> <!-- end testimonials -->
+
+       <!--  </div> --> <!-- end testimonials-wrap -->
+<br>
+
+<div class="full-height">
+<iframe  id="iframe-app" src="https://www.bing.com/covid" width="100%" height="100%"></iframe>
+</div>
+
+
+
+
+
+
+
+    </section> <!-- end s-works -->
+
+
+
+    <!-- stats
+    ================================================== -->
+    <section id="stats" class="s-stats">
+
+        <div class="row stats-block block-1-4 block-m-1-2 block-mob-full" data-aos="fade-up">
+                
+            <div class="col-block item-stats ">
+                <div class="item-stats__count">1524375</div>
+                <h5>Total Confirmed cases</h5>
+            </div>
+            <div class="col-block item-stats">
+                <div class="item-stats__count">1102541</div>
+                <h5>Active Cases</h5>
+            </div>
+            <div class="col-block item-stats">
+                <div class="item-stats__count">332869</div>
+                <h5>Recovered Cases</h5>
+            </div>
+            <div class="col-block item-stats">
+                <div class="item-stats__count">88965</div>
+                <h5>Fatal Cases</h5> 
+            </div>
+
+        </div> <!-- end stats -->
+
+    </section> <!-- end s-stats -->
+
+
+    <!-- contact
+    ================================================== -->
+    <section id="contact" class="s-contact target-section">
+
+      <!--   <div class="row section-header" data-aos="fade-up">
+            <div class="col-full">
+                <h3 data-num="05" class="subhead">Get In Touch</h3>
+                <h1 class="display-1 display-1--light">Scared you might have the virus?? Don't be! Contact us at <a href="tel:03820080800 ">038 200 8</a>
+                 </h1>
+            </div>
+        </div>
+ -->
+        <div class="row contact-infos">
+
+            <div class="col-five md-seven tab-full contact-address" data-aos="fade-up">
+                <h4>Where to Find Us</h4>
+
+                <p>
+                    Lagjja Kalabria <br>
+                    10000 Prishtine <br>
+                    Kosovo
+                </p>
+            </div>
+
+        <!--     <div class="col-three md-five tab-full contact-social" data-aos="fade-up">
+                <h4>Follow Us</h4>
+
+                <ul class="contact-list">
+                    <li><a href="#0">Facebook</a></li>
+                    <li><a href="#0">Twitter</a></li>
+                    <li><a href="#0">Instagram</a></li>
+                </ul>
+            </div>
+ -->
+            <div class="col-four md-six tab-full contact-number" data-aos="fade-up">
+                <h4>Contact Us</h4>
+
+                <ul class="contact-list">
+                    <li><a href="mailto:#0">na48884@ubt-uni.net</a></li>
+                    <li><a href="mailto:#0">rz47554@ubt-uni.net</a></li>
+                   
+                </ul>
+            </div>
+
+        </div> <!-- end contact-infos -->
+
+        <div class="row contact-bottom">
+            <div class="col-five tab-full contact-button" data-aos="fade-up">
+                <a href="#about" class="smoothscroll btn btn-animatedbg">
+                    Let's Talk 
+                </a>
+            </div>
+
+            <div class="col-six tab-full contact-subscribe" data-aos="fade-up">
+                <h4>Subscribe</h4>
+
+                <form id="mc-form" class="group mc-form" novalidate="true">
+                    <input type="email" value="" name="EMAIL" class="email" id="mc-email" placeholder="Email Address" required="">
+                    <input type="submit" name="subscribe" value="Subscribe">
+                    <label for="mc-email" class="subscribe-message"></label>
+                </form>
+            </div>
+        </div> <!-- end contact-button -->
+
+    </section> <!-- end s-contact -->
+
+
+    <!-- footer
+    ================================================== -->
+    <footer>
+        <div class="row">
+            <div class="col-full cl-copyright">
+                <span><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                &copy;<script>document.write(new Date().());</script> Njomze Ademi & Ruana Zeqiraj
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+</span>
+            </div>
+        </div>
+
+        <div class="cl-go-top">
+            <a class="smoothscroll" title="Back to Top" href="#top"></a>
+        </div>
+    </footer>
+
+
+    <!-- photoswipe background
+    ================================================== -->
+    <div aria-hidden="true" class="pswp" role="dialog" tabindex="-1">
+
+        <div class="pswp__bg"></div>
+        <div class="pswp__scroll-wrap">
+
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__top-bar">
+                    <div class="pswp__counter"></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button> <button class="pswp__button pswp__button--share" title=
+                    "Share"></button> <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button> <button class="pswp__button pswp__button--zoom" title=
+                    "Zoom in/out"></button>
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                            <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div>
+                </div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button> <button class="pswp__button pswp__button--arrow--right" title=
+                "Next (arrow right)"></button>
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div><!-- end photoSwipe background -->
+
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
